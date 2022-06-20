@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const message = document.querySelector(".msg");
   const playAgain = document.querySelector(".play-again");
   const shake = document.querySelector(".shake");
-  let cardsChosen = [];
-  let cardsChosenId = [];
+  let catsChosen = [];
+  let catsChosenId = [];
   let cardsWon = [];
 
   //create game board
@@ -41,8 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
   //check for matching cats
   const checkForMatch = () => {
     const cards = document.querySelectorAll("img");
-    const optionOneId = cardsChosenId[0];
-    const optionTwoId = cardsChosenId[1];
+    const optionOneId = catsChosenId[0];
+    const optionTwoId = catsChosenId[1];
 
     if (optionOneId == optionTwoId) {
       cards[optionOneId].setAttribute(
@@ -53,13 +53,13 @@ document.addEventListener("DOMContentLoaded", () => {
         "src",
         'https://i.imgur.com/ZWfjvzy.jpg"'
       );
-    } else if (cardsChosen[0] === cardsChosen[1]) {
+    } else if (catsChosen[0] === catsChosen[1]) {
       message.style.visibility = "visible";
       cards[optionOneId].setAttribute("src", "https://i.imgur.com/wvHyjOR.jpg");
       cards[optionTwoId].setAttribute("src", "https://i.imgur.com/wvHyjOR.jpg");
       cards[optionOneId].removeEventListener("click", flipCard);
       cards[optionTwoId].removeEventListener("click", flipCard);
-      cardsWon.push(cardsChosen);
+      cardsWon.push(catsChosen);
     } else {
       cards[optionOneId].setAttribute(
         "src",
@@ -71,8 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       message.style.visibility = "hidden";
     }
-    cardsChosen = [];
-    cardsChosenId = [];
+    catsChosen = [];
+    catsChosenId = [];
     resultDisplay.textContent = cardsWon.length;
     if (cardsWon.length === catArray.length / 2) {
       resultDisplay.textContent = "Congratulations! You found them all!";
@@ -83,10 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
   //flip your card
   function flipCard() {
     let cardId = this.getAttribute("data-id");
-    cardsChosen.push(catArray[cardId].name);
-    cardsChosenId.push(cardId);
+    catsChosen.push(catArray[cardId].name);
+    catsChosenId.push(cardId);
     this.setAttribute("src", catArray[cardId].img);
-    if (cardsChosen.length === 2) {
+    if (catsChosen.length === 2) {
       setTimeout(checkForMatch, 400);
     }
   }
